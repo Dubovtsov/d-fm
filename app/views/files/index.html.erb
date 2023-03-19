@@ -1,0 +1,34 @@
+<div class="grid h-screen content-start  overflow-scroll ">
+  <h1><span class="font-bold">Directory Listing:</span> <%= @path %></h1>
+
+  <div class="flex">
+    <%= link_to 'C:/', files_path("C:/"), class: "border bg-stone-200 hover:bg-stone-100 px-3 transition hover:shadow" %>
+  </div>
+
+  <div class="">
+    <ul>
+      <% if @directories.present? %>
+        <% @directories.each do |dir| %>
+          <li class="flex">
+            <%= material_icon.shape(:folder) %>
+            <%= link_to dir, files_path(path: File.join(@path, dir)) %>
+          </li>
+        <% end %>
+      <% else %>
+        <h1>Папка пуста</h1>
+      <% end %>
+    </ul>
+
+    <ul>
+      <% @files.each do |file| %>
+        <% unless File.directory?(file) %>
+          <li class="flex">
+            <%= material_icon.shape(:description) %>
+            <%= link_to File.basename(file), file_path(path: File.basename(file)) %>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+  
+</div>
